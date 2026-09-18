@@ -181,6 +181,23 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
       if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
       if (e.key === 'ArrowLeft') prevSlide();
     });
+    // Suporte para deslizar o dedo no telemóvel (Touch Swipe)
+let touchstartX = 0;
+let touchendX = 0;
+
+document.addEventListener('touchstart', e => {
+  touchstartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+  touchendX = e.changedTouches[0].screenX;
+  handleGesture();
+});
+
+function handleGesture() {
+  if (touchendX < touchstartX - 50) nextSlide(); // Arrastar para a esquerda -> Próximo slide
+  if (touchendX > touchstartX + 50) prevSlide(); // Arrastar para a direita -> Slide anterior
+}
   </script>
 </body>
 </html>
