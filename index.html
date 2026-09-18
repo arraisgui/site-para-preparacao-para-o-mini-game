@@ -7,33 +7,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-    body { background-color: #0d1117; color: #c9d1d9; overflow: hidden; height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
     
-    .slide-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
-    .slide { display: none; width: 100%; max-width: 1000px; animation: slideIn 0.4s ease-out; }
+    html, body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Container que permite ROLAGEM VERTICAL no celular */
+    .slide-container {
+      flex: 1;
+      padding: 20px 20px 100px 20px; /* Espaço no final para não cobrir o conteúdo com os botões */
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slide { display: none; width: 100%; max-width: 900px; margin: 0 auto; animation: slideIn 0.3s ease-out; }
     .slide.active { display: block; }
 
-    @keyframes slideIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-    h1 { font-size: 2.8rem; color: #58a6ff; margin-bottom: 15px; text-align: center; }
-    h2 { font-size: 2.2rem; color: #58a6ff; margin-bottom: 25px; border-bottom: 2px solid #30363d; padding-bottom: 10px; }
-    p { font-size: 1.3rem; margin-bottom: 20px; line-height: 1.6; }
+    h1 { font-size: 2.2rem; color: #58a6ff; margin-bottom: 15px; text-align: center; }
+    h2 { font-size: 1.8rem; color: #58a6ff; margin-bottom: 20px; border-bottom: 2px solid #30363d; padding-bottom: 8px; }
+    p { font-size: 1.1rem; margin-bottom: 15px; line-height: 1.6; }
     
-    .speaker-badge { display: inline-block; background: #bc8cff; color: #000; font-weight: 800; padding: 4px 12px; border-radius: 12px; font-size: 0.9rem; margin-bottom: 15px; }
+    .speaker-badge { display: inline-block; background: #bc8cff; color: #000; font-weight: 800; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; margin-bottom: 15px; }
     
-    .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-    .card { background: #161b22; border: 1px solid #30363d; padding: 25px; border-radius: 12px; border-left: 5px solid #58a6ff; }
-    .card h3 { color: #3fb950; font-size: 1.3rem; margin-bottom: 10px; }
+    .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px; }
+    .card { background: #161b22; border: 1px solid #30363d; padding: 20px; border-radius: 12px; border-left: 5px solid #58a6ff; }
+    .card h3 { color: #3fb950; font-size: 1.2rem; margin-bottom: 8px; }
 
-    .formula-box { background: #000; border: 2px solid #3fb950; padding: 20px; border-radius: 10px; font-family: 'Fira Code', monospace; color: #3fb950; font-size: 1.5rem; text-align: center; margin: 25px 0; }
+    .formula-box { background: #000; border: 2px solid #3fb950; padding: 15px; border-radius: 10px; font-family: 'Fira Code', monospace; color: #3fb950; font-size: 1.2rem; text-align: center; margin: 20px 0; word-break: break-word; }
     
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #161b22; border-radius: 8px; overflow-y: auto; }
-    th, td { padding: 15px; text-align: left; border-bottom: 1px solid #30363d; font-size: 1.1rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #161b22; border-radius: 8px; overflow: hidden; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #30363d; font-size: 0.95rem; }
     th { background: #21262d; color: #58a6ff; }
 
-    footer { background: #161b22; border-top: 1px solid #30363d; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
-    .nav-btn { background: #21262d; color: #fff; border: 1px solid #30363d; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    /* Barra fixa na parte inferior da tela */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #161b22;
+      border-top: 1px solid #30363d;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+    }
+    .nav-btn { background: #21262d; color: #fff; border: 1px solid #30363d; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
     .nav-btn:hover { background: #58a6ff; color: #000; }
+
+    /* Adaptação para telas pequenas */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.7rem; }
+      h2 { font-size: 1.4rem; }
+      p, td, th { font-size: 0.95rem; }
+      .formula-box { font-size: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -42,18 +77,17 @@
     
     <!-- SLIDE 1 -->
     <div class="slide active">
-      <span class="speaker-badge">INTEGRANTE 1 - Guilherme Andrade </span>
+      <span class="speaker-badge">...</span>
       <h1>Entalpia Padrão de Formação (ΔHºf)</h1>
-      <p style="text-align: center; font-size: 1.5rem; color: #bc8cff;">Quanto "custa" para a natureza construir 1 mol de qualquer substância?</p>
-      <div class="card" style="margin-top: 30px; text-align: center;">
-        <p><strong>IFMA Campus Açailândia — Química</strong><br>Integrantes: 
-Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Neves.</p>
+      <p style="text-align: center; font-size: 1.2rem; color: #bc8cff;">Quanto "custa" para a natureza construir 1 mol de qualquer substância?</p>
+      <div class="card" style="margin-top: 25px; text-align: center;">
+        <p><strong>IFMA - Campus Açailândia / Química</strong><br>Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanoel, Riquelmy Neves</p>
       </div>
     </div>
 
     <!-- SLIDE 2 -->
     <div class="slide">
-      <span class="speaker-badge">INTEGRANTE 1 - Guilherme Andrade</span>
+      <span class="speaker-badge">INTEGRANTE 1 — Guilherme Andrade</span>
       <h2>As Condições do Estado Padrão</h2>
       <p>Para termos uma referência universal de comparação energética:</p>
       <div class="grid-cards">
@@ -74,7 +108,7 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
 
     <!-- SLIDE 3 -->
     <div class="slide">
-      <span class="speaker-badge">INTEGRANTE 2 - Paulo Emanuel — O TEÓRICO</span>
+      <span class="speaker-badge">INTEGRANTE 2 — Paulo Emanoel - O TEÓRICO</span>
       <h2>A Convenção do Zero (ΔHºf = 0)</h2>
       <div class="formula-box">Substância Simples no Estado Padrão = 0 kJ/mol</div>
       <table>
@@ -92,7 +126,7 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
 
     <!-- SLIDE 4 -->
     <div class="slide">
-      <span class="speaker-badge">INTEGRANTE 3 - Ismael Miranda — O CONSTRUTOR</span>
+      <span class="speaker-badge">INTEGRANTE 3 — Ismael Miranda - O CONSTRUTOR</span>
       <h2>Anatomia da Equação de Formação</h2>
       <div class="grid-cards">
         <div class="card">
@@ -104,25 +138,25 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
           <p>Apenas <strong>substâncias simples</strong> no estado padrão.</p>
         </div>
       </div>
-      <div class="formula-box" style="margin-top: 20px;">
+      <div class="formula-box">
         C(grafite) + O₂(g) → 1 CO₂(g) &nbsp;&nbsp; ΔHºf = -393,5 kJ/mol
       </div>
     </div>
 
     <!-- SLIDE 5 -->
     <div class="slide">
-      <span class="speaker-badge">INTEGRANTE 4 - Riquelmy Neves — O CALCULISTA</span>
+      <span class="speaker-badge">INTEGRANTE 4 — Riquelmy Neves - O CALCULISTA</span>
       <h2>A Fórmula Fundamental de ΔH</h2>
-      <p>A variação de entalpia de qualquer reação é a diferença entre produtos e reagentes:</p>
-      <div class="formula-box" style="font-size: 1.8rem;">
+      <p>A variação de entalpia da reação é a diferença entre produtos e reagentes:</p>
+      <div class="formula-box">
         ΔHºreação = ∑ (n × ΔHºf produtos) - ∑ (m × ΔHºf reagentes)
       </div>
-      <p style="text-align: center;"><em>"Produtos menos Reagentes multiplicados pelos coeficientes."</em></p>
+      <p style="text-align: center;"><em>"Soma das entalpias dos Produtos menos Soma dos Reagentes."</em></p>
     </div>
 
     <!-- SLIDE 6 -->
     <div class="slide">
-      <span class="speaker-badge">INTEGRANTE 4 - Riquelmy Neves — O CALCULISTA</span>
+      <span class="speaker-badge">INTEGRANTE 4 — Riquelmy Neves - O CALCULISTA</span>
       <h2>Exemplo Prático: Combustão do Metano</h2>
       <p style="color: #58a6ff; font-family: monospace;">CH₄(g) + 2 O₂(g) → CO₂(g) + 2 H₂O(l)</p>
       <div class="card">
@@ -134,7 +168,7 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
 
     <!-- SLIDE 7 -->
     <div class="slide">
-      <span class="speaker-badge">INTEGRANTE 5 - Guilherme Arrais — GAME MASTER</span>
+      <span class="speaker-badge">INTEGRANTE 5 — Guilherme Arrais - GAME MASTER</span>
       <h2>🎮 Hora do Mini-Game Avaliativo!</h2>
       <p>Acessem a aba <strong>Mini-Game Avaliativo</strong> na nossa plataforma web.</p>
       <div class="grid-cards">
@@ -152,9 +186,9 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
   </div>
 
   <footer>
-    <button class="nav-btn" onclick="prevSlide()">← Anterior</button>
-    <span id="slide-counter" style="font-weight: bold; color: #58a6ff;">Slide 1 / 7</span>
-    <button class="nav-btn" onclick="nextSlide()">Próximo →</button>
+    <button class="nav-btn" onclick="prevSlide()">← Ant.</button>
+    <span id="slide-counter" style="font-weight: bold; color: #58a6ff; font-size: 0.9rem;">Slide 1 / 7</span>
+    <button class="nav-btn" onclick="nextSlide()">Próx. →</button>
   </footer>
 
   <script>
@@ -167,6 +201,8 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
         slide.classList.toggle('active', i === index);
       });
       counter.innerText = `Slide ${index + 1} / ${slides.length}`;
+      // Reseta a rolagem para o topo ao mudar de slide
+      document.querySelector('.slide-container').scrollTop = 0;
     }
 
     function nextSlide() {
@@ -177,27 +213,34 @@ Guilherme Arrais, Guilherme Andrade, Ismael Miranda, Paulo Emanuel, Riquelmy Nev
       if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); }
     }
 
+    // Navegação pelas setas do teclado
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
       if (e.key === 'ArrowLeft') prevSlide();
     });
-    // Suporte para deslizar o dedo no telemóvel (Touch Swipe)
-let touchstartX = 0;
-let touchendX = 0;
 
-document.addEventListener('touchstart', e => {
-  touchstartX = e.changedTouches[0].screenX;
-});
+    // Navegação por toque (Touch Swipe inteligente que NÃO bloqueia a rolagem para baixo)
+    let touchstartX = 0;
+    let touchstartY = 0;
 
-document.addEventListener('touchend', e => {
-  touchendX = e.changedTouches[0].screenX;
-  handleGesture();
-});
+    document.addEventListener('touchstart', e => {
+      touchstartX = e.touches[0].clientX;
+      touchstartY = e.touches[0].clientY;
+    }, { passive: true });
 
-function handleGesture() {
-  if (touchendX < touchstartX - 50) nextSlide(); // Arrastar para a esquerda -> Próximo slide
-  if (touchendX > touchstartX + 50) prevSlide(); // Arrastar para a direita -> Slide anterior
-}
+    document.addEventListener('touchend', e => {
+      let touchendX = e.changedTouches[0].clientX;
+      let touchendY = e.changedTouches[0].clientY;
+      
+      let diffX = touchendX - touchstartX;
+      let diffY = touchendY - touchstartY;
+
+      // Só muda o slide se o movimento horizontal for maior que o vertical
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) nextSlide(); // Arrastou para a esquerda -> Próximo
+        else prevSlide();          // Arrastou para a direita -> Anterior
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
